@@ -1,0 +1,65 @@
+:coffeescript
+  jQuery ->
+    map = new BMap.Map("baidumap")
+    map.centerAndZoom(new BMap.Point("#{field.default_latitude}", "#{field.default_longitude}"), 14)
+    map.enableScrollWheelZoom();
+    local = new BMap.LocalSearch(map,renderOptions:{map: map,  panel:"baidumap_result"})
+
+    POINT = null
+
+    jQuery('#baidumap_comfirm').on 'click', (e)->
+      e.preventDefault()
+      if POINT
+        jQuery("##{field.latitude_dom_name}").val(POINT.lat)
+        jQuery("##{field.longitude_dom_name}").val(POINT.lng)
+        jQuery('#baidumap_modal').modal('hide')
+      else
+        alert '请在地图中标注坐标点!'
+
+    jQuery('#search').on 'click', (e)->
+      e.preventDefault()
+      local.search $('#search-input').val()
+    
+    map.addEventListener 'click', (e)->
+      map.clearOverlays()
+      marker = new (BMap.Marker)(e.point)
+      map.addOverlay marker
+      marker.setAnimation BMAP_ANIMATION_BOUNCE
+      POINT = e.point
+
+= javascript_include_tag("http://api.map.baidu.com/api?v=2.0&ak=#{field.api_key}")
+:scss
+  #baidumap{
+    width:100%;height:400px;
+  }
+
+= form.fields_for :test do |location_field|
+  %div.control-group(class="#{field.latitude_dom_name}")
+    = location_field.label :latitude, :class => "control-label"
+    %div.controls
+      = location_field.send :text_field, nil, field.html_attributes.reverse_merge({ :value => field.value.try(:first) || field.default_latitude, :id => field.latitude_dom_name })
+  %div.control-group(class="#{field.longitude_dom_name}")
+    = location_field.label :longitude, :class => "control-label"
+    %div.controls
+      = location_field.send :text_field, nil, field.html_attributes.reverse_merge({ :value => field.value.try(:last) || field.default_longitude, :id => field.longitude_dom_name })
+
+%button.btn.btn-success{:type => "button", "data-toggle" => "modal", "data-target" => "#baidumap_modal"} 在地图上标注
+
+#baidumap_modal.modal.fade.bs-example-modal-lg{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &times;
+        %h4#myModalLabel.modal-title 地图
+      .modal-body.form-inline
+        .row
+          .col-md-6
+            %div#baidumap
+          .col-md-6
+            %input#search-input.form-control{:placeholder => "请输入详细地址"}
+            %button#search.btn.btn-primary 搜索
+            %div#baidumap_result
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 关闭
+        %button.btn#baidumap_comfirm.btn-primary{:type => "button"} 确定
