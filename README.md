@@ -1,5 +1,7 @@
 # Rails Admin Baidu Map
 
+![](http://i.imgur.com/SOP9ikK.gif)
+
 This project is fork from [rails_admin_mongoid_geospatial_field](https://github.com/sudosu/rails_admin_mongoid_geospatial_field)
 
 Adds to [RailsAdmin](https://github.com/sferik/rails_admin) support for setting geospatial information with Baidu Maps.
