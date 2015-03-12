@@ -33,7 +33,7 @@
     width:100%;height:400px;
   }
 
-= form.fields_for :test do |location_field|
+= form.fields_for field.name do |location_field|
   %div.control-group(class="#{field.latitude_dom_name}")
     = location_field.label :latitude, :class => "control-label"
     %div.controls
