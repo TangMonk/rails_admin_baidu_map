@@ -60,7 +60,7 @@ rake db:mongoid:create_indexes
 
 ## Configuration
 
-- `api_key` - if you use a Google Maps API Key, it can be specified here.
+- `api_key` - if you use Baidu Maps API Key, it can be specified here.
 - `default_latitude` - the latitude to center the map shown on if the latitude is blank. Defaults to 116.404 , the latitude of Ivano-Frankivsk, Ukraine
 - `default_longitude` - the longitude used if the longitude is blank. Defaults to 24.7111, the longitude of Ivano-Frankivsk, Ukraine.
 
