@@ -1,5 +1,7 @@
 # Rails Admin Baidu Map
 
+Support Postgis and Mongoid
+
 ![](http://i.imgur.com/SOP9ikK.gif)
 
 This project is fork from [rails_admin_mongoid_geospatial_field](https://github.com/sudosu/rails_admin_mongoid_geospatial_field)
@@ -18,7 +20,9 @@ And then execute:
 
     $ bundle
 
-## Usage
+## Usage 
+
+### Mongoid
 
 In your model location field must be an Array:
 
@@ -38,13 +42,17 @@ class Person
 end
 ```
 
+### Postgis
+
+You should use `activerecord-postgis-adapter` gem.
+
 Then, add in your `config/initializers/rails_admin.rb` initializer:
 
 ```ruby
 RailsAdmin.config do |config|
-  config.model Person do
+  config.model Businessmen do
     edit do
-      field :location, :baidumap do
+      field :lonlat, :baidumap_postgis do
         api_key "apikey"
       end
     end
@@ -52,10 +60,17 @@ RailsAdmin.config do |config|
 end
 ```
 
-Create indexes in command prompt:
+schema example:
 
 ```ruby
-rake db:mongoid:create_indexes
+class CreateBusinessmen < ActiveRecord::Migration
+  def change
+    create_table :businessmen do |t|
+      t.point  :lonlat, srid: 4326  # must be Point
+      t.timestamps
+    end
+  end
+end
 ```
 
 ## Configuration
