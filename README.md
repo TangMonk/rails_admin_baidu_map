@@ -42,6 +42,20 @@ class Person
 end
 ```
 
+Then, add in your `config/initializers/rails_admin.rb` initializer:
+
+```ruby
+RailsAdmin.config do |config|
+  config.model Businessmen do
+    edit do
+      field :lonlat, :baidumap do
+        api_key "apikey"
+      end
+    end
+  end
+end
+```
+
 ### Postgis
 
 You should use `activerecord-postgis-adapter` gem.
