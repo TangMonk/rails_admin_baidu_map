@@ -75,7 +75,8 @@
         
       @map.addEventListener 'click', (e)=>
         @show_point(e.point)
-
-      return true
+      
+      # when the init function fininshed, chrome will throw `Uncaught TypeError: Cannot read property 'rv' of undefined`, hope someone can fix that.
+      
 
   jQuery(document).on 'rails_admin.dom_ready', window.map.load_map
