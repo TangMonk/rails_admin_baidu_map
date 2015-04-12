@@ -7,14 +7,12 @@ require "rails_admin_baidu_map/version"
 Gem::Specification.new do |s|
   s.name        = "rails_admin_baidu_map"
   s.version     = RailsAdminBaiduMap::VERSION
-  s.authors     = ["tangmonk"]
+  s.authors     = ["TangMonk"]
   s.email       = ["wytwyt02@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of RailsAdminBaiduMap."
-  s.description = "TODO: Description of RailsAdminBaiduMap."
+  s.summary     = "Add baidu baidu to rails admin"
+  s.description = "Support PostGis And Mongoid"
+  s.homepage    = "https://github.com/TangMonk/rails_admin_baidu_map"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
-
-  s.add_dependency "rails", "~> 4.1.0"
 end

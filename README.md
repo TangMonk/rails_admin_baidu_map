@@ -13,7 +13,7 @@ Adds to [RailsAdmin](https://github.com/sferik/rails_admin) support for setting 
 To enable this gem, add the following to your `Gemfile`:
 
 ```ruby
-gem "rails_admin_baidu_map", :github => "TangMonk/rails_admin_baidu_map"
+gem "rails_admin_baidu_map"
 ```
 
 And then execute:
