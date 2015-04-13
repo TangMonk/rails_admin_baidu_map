@@ -71,7 +71,7 @@
         @map.panTo point
 
 
-      jQuery('#search').on 'click', (e)->
+      jQuery('#search').on 'click', (e)=>
         e.preventDefault()
         @local.search $('#search-input').val()
       
