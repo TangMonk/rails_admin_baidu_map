@@ -45,6 +45,18 @@
 
     init: () ->
       @map = new BMap.Map("baidumap")
+      real_point = new BMap.Point("#{field.value.try :x}", "#{field.value.try :y}")
+      default_point = new BMap.Point("#{field.default_longitude}", "#{field.default_latitude}")
+      if isNaN(real_point.lat) or isNaN(real_point.lng)
+        point = default_point
+      else
+        point = real_point
+
+      @show_point(point)
+      @map.centerAndZoom(point, 14)
+      @map.enableScrollWheelZoom();
+      @local = new BMap.LocalSearch(@map,renderOptions:{map: @map,  panel:"baidumap_result"})
+
       @POINT = null
 
       jQuery('#baidumap_comfirm').on 'click', (e)=>
@@ -54,25 +66,16 @@
           jQuery('#baidumap_modal').modal('hide')
         else
           alert '请在地图中标注坐标点!'
+      
+      jQuery('#baidumap_modal').on 'shown.bs.modal', ()=>
+        @map.panTo point
+
 
       jQuery('#search').on 'click', (e)->
         e.preventDefault()
-        local.search $('#search-input').val()
+        @local.search $('#search-input').val()
       
-      jQuery('#baidumap_modal').on 'shown.bs.modal', =>
-        real_point = new BMap.Point("#{field.value.try :x}", "#{field.value.try :y}")
-        default_point = new BMap.Point("#{field.default_latitude}", "#{field.default_longitude}")
-        
-        if isNaN(real_point.lat) or isNaN(real_point.lng)
-          point = default_point
-        else
-          point = real_point
-          @show_point(point)
-        
-        @map.centerAndZoom(point, 14)
-        @map.enableScrollWheelZoom();
-        local = new BMap.LocalSearch(@map,renderOptions:{map: @map,  panel:"baidumap_result"})
-        
+
       @map.addEventListener 'click', (e)=>
         @show_point(e.point)
       

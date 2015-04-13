@@ -93,10 +93,6 @@ end
 - `default_latitude` - the latitude to center the map shown on if the latitude is blank. Defaults to 116.404 , the latitude of Ivano-Frankivsk, Ukraine
 - `default_longitude` - the longitude used if the longitude is blank. Defaults to 24.7111, the longitude of Ivano-Frankivsk, Ukraine.
 
-## Issues
-
-1. When load BaiduMap async and invoke the callback, chrome will throw an error: `Uncaught TypeError: Cannot read property 'rv' of undefined`
-
 ## License
 
 Licensed under the MIT license.
