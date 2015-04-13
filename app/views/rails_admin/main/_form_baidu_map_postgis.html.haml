@@ -68,8 +68,7 @@
           alert '请在地图中标注坐标点!'
       
       jQuery('#baidumap_modal').on 'shown.bs.modal', ()=>
-        @map.panTo point
-
+        @map.panTo point if point != default_point
 
       jQuery('#search').on 'click', (e)=>
         e.preventDefault()
